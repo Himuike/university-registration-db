@@ -1,0 +1,48 @@
+-- 1. Insert Academic Programs
+INSERT INTO AcademicProgram (ProgramCode, ProgramName, DegreeType, Requirements)
+VALUES 
+('BSCCS', 'Bachelor of Science in Computer Science', 'Bachelor', 'Complete 120 credit hours'),
+('BBA', 'Bachelor of Business Administration', 'Bachelor', 'Complete 120 credit hours'),
+('MSCCS', 'Master of Science in Computer Science', 'Master', 'Complete 60 credit hours'),
+('MBA', 'Master of Business Administration', 'Master', 'Complete 60 credit hours');
+
+-- 2. Insert Students
+INSERT INTO Student (FirstName, LastName, Email, Phone)
+VALUES 
+('John', 'Doe', 'john@example.com', '123-456-7890'),
+('Jane', 'Smith', 'jane@example.com', '987-654-3210'),
+('Alice', 'Johnson', 'alice@example.com', '111-222-3333');
+
+-- 3. Insert Faculty
+INSERT INTO Faculty (FirstName, LastName, Email, Phone, Department)
+VALUES 
+('Dr. Smith', 'Williams', 'smith@example.com', '555-123-4567', 'Computer Science'),
+('Dr. Brown', 'Davis', 'brown@example.com', '555-987-6543', 'Business');
+
+-- 4. Insert Courses
+INSERT INTO Course (CourseCode, CourseName, CreditHours, InstructorID, ProgramCode)
+VALUES 
+('CS101', 'Introduction to Programming', 3, 1, 'BSCCS'),
+('CS102', 'Data Structures', 4, 1, 'BSCCS'),
+('BUS101', 'Business Fundamentals', 3, 2, 'BBA'),
+('BUS102', 'Marketing', 3, 2, 'BBA');
+
+-- 5. Insert Enrollments
+INSERT INTO Enrollment (StudentID, ProgramCode, EnrollmentStatus, Grade)
+VALUES 
+(1, 'BSCCS', 'Active', 'A'),
+(2, 'BBA', 'Active', 'B'),
+(3, 'MSCCS', 'Active', NULL);
+
+-- 6. Insert Class Schedules
+INSERT INTO ClassSchedule (CourseCode, DayOfWeek, StartTime, EndTime, Location)
+VALUES 
+('CS101', 'Monday', '09:00:00', '10:30:00', 'Room 101'),
+('CS102', 'Tuesday', '11:00:00', '12:30:00', 'Room 102'),
+('BUS101', 'Wednesday', '13:00:00', '14:30:00', 'Room 201');
+
+-- 7. Insert Prerequisites
+INSERT INTO Prerequisite (ProgramCode, PrerequisiteProgramCode)
+VALUES 
+('MSCCS', 'BSCCS'), -- MSc CS requires BSc CS
+('MBA', 'BBA');     -- MBA requires BBA

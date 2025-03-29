@@ -1,0 +1,30 @@
+-- 1. Find all students in a program
+SELECT s.StudentID, s.FirstName, s.LastName
+FROM Student s
+JOIN Enrollment e ON s.StudentID = e.StudentID
+WHERE e.ProgramCode = 'BSCCS';
+
+-- 2. List all courses with their instructors
+SELECT c.CourseCode, c.CourseName, f.FirstName, f.LastName
+FROM Course c
+JOIN Faculty f ON c.InstructorID = f.FacultyID;
+
+-- 3. Check Prerequisites for a Program (e.g., MSCCS)
+SELECT p.ProgramName, prereq.ProgramName AS 'Required Program'
+FROM Prerequisite pre
+JOIN AcademicProgram p ON pre.ProgramCode = p.ProgramCode
+JOIN AcademicProgram prereq ON pre.PrerequisiteProgramCode = prereq.ProgramCode
+WHERE pre.ProgramCode = 'MSCCS';
+
+-- 4. Get a Student’s Enrolled Program
+SELECT s.FirstName, s.LastName, p.ProgramName
+FROM Student s
+JOIN Enrollment e ON s.StudentID = e.StudentID
+JOIN AcademicProgram p ON e.ProgramCode = p.ProgramCode
+WHERE s.StudentID = 1;
+
+-- 5. Check program prerequisites
+SELECT prereq.ProgramName AS 'Required Program'
+FROM Prerequisite p
+JOIN AcademicProgram prereq ON p.PrerequisiteProgramCode = prereq.ProgramCode
+WHERE p.ProgramCode = 'MSCCS';

@@ -1,0 +1,68 @@
+-- 1. AcademicProgram Table
+CREATE TABLE AcademicProgram (
+    ProgramCode VARCHAR(10) PRIMARY KEY,
+    ProgramName VARCHAR(100) NOT NULL,
+    DegreeType VARCHAR(50) NOT NULL,
+    Requirements TEXT
+);
+
+-- 2. Student Table
+CREATE TABLE Student (
+    StudentID INT PRIMARY KEY AUTO_INCREMENT,
+    FirstName VARCHAR(50) NOT NULL,
+    LastName VARCHAR(50) NOT NULL,
+    Email VARCHAR(100) UNIQUE NOT NULL,
+    Phone VARCHAR(15)
+);
+
+-- 3. Faculty Table
+CREATE TABLE Faculty (
+    FacultyID INT PRIMARY KEY AUTO_INCREMENT,
+    FirstName VARCHAR(50) NOT NULL,
+    LastName VARCHAR(50) NOT NULL,
+    Email VARCHAR(100) UNIQUE NOT NULL,
+    Phone VARCHAR(15),
+    Department VARCHAR(100)
+);
+
+-- 4. Course Table
+CREATE TABLE Course (
+    CourseCode VARCHAR(10) PRIMARY KEY,
+    CourseName VARCHAR(100) NOT NULL,
+    CreditHours INT NOT NULL,
+    InstructorID INT,
+    ProgramCode VARCHAR(10),
+    FOREIGN KEY (InstructorID) REFERENCES Faculty(FacultyID),
+    FOREIGN KEY (ProgramCode) REFERENCES AcademicProgram(ProgramCode)
+);
+
+-- 5. Enrollment Table
+CREATE TABLE Enrollment (
+    EnrollmentID INT PRIMARY KEY AUTO_INCREMENT,
+    StudentID INT,
+    ProgramCode VARCHAR(10),
+    EnrollmentStatus VARCHAR(20) NOT NULL,
+    Grade VARCHAR(2),
+    FOREIGN KEY (StudentID) REFERENCES Student(StudentID),
+    FOREIGN KEY (ProgramCode) REFERENCES AcademicProgram(ProgramCode)
+);
+
+-- 6. ClassSchedule Table
+CREATE TABLE ClassSchedule (
+    ScheduleID INT PRIMARY KEY AUTO_INCREMENT,
+    CourseCode VARCHAR(10),
+    DayOfWeek VARCHAR(10) NOT NULL,
+    StartTime TIME NOT NULL,
+    EndTime TIME NOT NULL,
+    Location VARCHAR(100),
+    FOREIGN KEY (CourseCode) REFERENCES Course(CourseCode)
+);
+
+-- 7. Prerequisite Table
+CREATE TABLE Prerequisite (
+    PrerequisiteID INT PRIMARY KEY AUTO_INCREMENT,
+    ProgramCode VARCHAR(10),
+    PrerequisiteProgramCode VARCHAR(10),
+    FOREIGN KEY (ProgramCode) REFERENCES AcademicProgram(ProgramCode),
+    FOREIGN KEY (PrerequisiteProgramCode) REFERENCES AcademicProgram(ProgramCode)
+);

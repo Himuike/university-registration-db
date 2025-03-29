@@ -1,0 +1,10 @@
+# Ignore database credentials
+*.env
+config.ini
+
+# Ignore IDE files
+.idea/
+*.swp
+
+# System files
+.DS_Store
